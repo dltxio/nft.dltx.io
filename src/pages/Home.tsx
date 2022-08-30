@@ -18,7 +18,7 @@ const Home = () => {
             <Button
               title="disconnect"
               onClick={wagmi.disconnect}
-              className="mt-12"
+              className="mt-12 rounded-[50%] !px-5 !py-12"
             />
           </>
         ) : (

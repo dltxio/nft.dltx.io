@@ -16,7 +16,11 @@ const MeshMember: React.FC<Props> = (props) => {
 
   return (
     <div
-      className="flex flex-col justify-start items-center text-center bg-black border-[1.5px] border-white/20 px-6 py-4 rounded-xl shadow-2xl cursor-pointer hover:scale-[1.1] duration-200 transition-all hover:!bg-white"
+      className="\
+        flex flex-col justify-start items-center text-center \
+        bg-black border-[1.5px] border-white/20 px-6 py-4 \
+        rounded-xl shadow-2xl cursor-pointer hover:scale-[1.1] \
+        duration-200 transition-all hover:!bg-white\"
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
     >
