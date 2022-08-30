@@ -22,7 +22,11 @@ const Home = () => {
             />
           </>
         ) : (
-          <Button title="connect" onClick={wagmi.connect} className="rounded-[50%] !px-5 !py-8" />
+          <Button
+            title="connect"
+            onClick={wagmi.connect}
+            className="rounded-[50%] !px-5 !py-8"
+          />
         )}
       </div>
     </PageLayout>

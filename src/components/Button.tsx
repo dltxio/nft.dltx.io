@@ -14,10 +14,7 @@ const Button: React.FC<Props> = (props) => {
   const newClassnames = `${defaultStyles} ${className}`;
 
   return (
-    <div
-      className={newClassnames}
-      onClick={onClick}
-    >
+    <div className={newClassnames} onClick={onClick}>
       {title.toUpperCase()}
     </div>
   );
