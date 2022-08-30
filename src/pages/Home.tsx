@@ -13,12 +13,19 @@ const Home = () => {
       </div>
       <div className="w-1/2 flex flex-col items-center">
         {wagmi.isConnected ? (
-          <Mesh />
+          <>
+            <Mesh />
+            <Button
+              title="disconnect"
+              onClick={wagmi.disconnect}
+              className="mt-20"
+            />
+          </>
         ) : (
           <Button
             title="connect"
             onClick={wagmi.connect}
-            className="rounded-[50%] !px-5 !py-8 hover:bg-white hover:text-black hover:font-black"
+            className="rounded-[50%] !px-5 !py-8"
           />
         )}
       </div>

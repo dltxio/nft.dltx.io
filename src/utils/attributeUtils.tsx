@@ -9,13 +9,8 @@ export const shortenPgpOrReturnEmail = (url: string) => {
   if (url.match(regex)) {
     const lastIndex = url.lastIndexOf("/");
     return (
-      <p key={url}>
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="italic !text-xs"
-        >
+      <p key={url} className="text-inherit italic !text-xs">
+        <a href={url} target="_blank" rel="noopener noreferrer">
           {url.slice(lastIndex + 1)}
         </a>
       </p>
@@ -24,10 +19,8 @@ export const shortenPgpOrReturnEmail = (url: string) => {
 
   // if it doesn't match then it's an email
   return (
-    <p key={url}>
-      <a href={`mailto:${url}`} className="underline">
-        {url}
-      </a>
+    <p key={url} className="underline underline-offset-2 text-inherit">
+      <a href={`mailto:${url}`}>{url}</a>
     </p>
   );
 };
