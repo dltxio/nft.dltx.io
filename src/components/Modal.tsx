@@ -11,7 +11,7 @@ const Modal: React.FC<Props> = (props) => {
 
   return (
     <div
-      className={`modal ${isModalOpen && "modal-open"}`}
+      className={`modal ${isModalOpen ? "modal-open" : ""}`}
       onClick={() => setIsModalOpen(false)}
     >
       <div className="modal-box flex flex-col bg-black border-[1.5px] border-white/20">
