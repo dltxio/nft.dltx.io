@@ -7,11 +7,11 @@ export const shortenPGP = (url: string) => {
 
   if (url.match(regex)) {
     const lastIndex = url.lastIndexOf("/");
-    return url.slice(lastIndex + 1);
+    return <p key={url}>{url.slice(lastIndex + 1)}</p>;
   }
 
-  return url;
+  return <p key={url}>{url}</p>;
 };
 
 export const formatTwitterHandle = (handle: string) =>
-  handle !== "" && `@${handle}`;
+  handle !== "" && <p key={handle}>{`@${handle}`}</p>;

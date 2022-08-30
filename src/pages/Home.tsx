@@ -15,7 +15,11 @@ const Home = () => {
         {wagmi.isConnected ? (
           <Mesh />
         ) : (
-          <Button title="connect" onClick={wagmi.connect} />
+          <Button
+            title="connect"
+            onClick={wagmi.connect}
+            className="rounded-[50%] !px-5 !py-8 hover:bg-white hover:text-black hover:font-black"
+          />
         )}
       </div>
     </PageLayout>
