@@ -1,16 +1,13 @@
+import React from "react";
 import { useWagmi } from "../hooks";
-import { PageLayout, Button, Mesh } from "../components";
+import { PageLayout, Button, Mesh, Logo } from "../components";
 
-const Home = () => {
+const Home: React.FC = () => {
   const wagmi = useWagmi();
 
   return (
     <PageLayout>
-      <div className="mb-14 mix-w-1/5">
-        <h1 className="text-center text-5xl font-black px-10">dltx.io</h1>
-        <div className="h-[0.1rem] bg-white" />
-        <h2 className="text-center text-5xl font-black px-10">meshies</h2>
-      </div>
+      <Logo />
       <div className="w-1/2 flex flex-col items-center">
         {wagmi.isConnected ? (
           <>
