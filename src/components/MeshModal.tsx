@@ -15,6 +15,8 @@ type Props = {
 const MeshModal: React.FC<Props> = (props) => {
   const { currentMeshMember, isModalOpen, setIsModalOpen } = props;
 
+  if (!currentMeshMember) return null;
+
   return (
     <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
       <div
@@ -23,19 +25,19 @@ const MeshModal: React.FC<Props> = (props) => {
           mb-4 border-2 flex flex-col justify-center items-center"
       >
         <img
-          src={currentMeshMember?.image}
-          alt={currentMeshMember?.name}
+          src={currentMeshMember.image}
+          alt={currentMeshMember.name}
           className="h-full object-cover"
         />
       </div>
       <h2 className="text-3xl font-bold">
-        {currentMeshMember?.name.toUpperCase()}
+        {currentMeshMember.name.toUpperCase()}
       </h2>
       <h3 className="text-xl font-bold mb-4">
-        {currentMeshMember?.description.toUpperCase()}
+        {currentMeshMember.description.toUpperCase()}
       </h3>
       <div className="w-full flex flex-row items-center gap-x-4 justify-evenly text-center mb-4 flex-wrap">
-        {currentMeshMember?.attributes.map((attObject) =>
+        {currentMeshMember.attributes.map((attObject) =>
           Object.values(attObject).map(
             (attribute) =>
               attribute && (

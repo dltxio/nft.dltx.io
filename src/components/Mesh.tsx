@@ -7,10 +7,10 @@ const Mesh: React.FC = () => {
   const [currentMeshMember, setCurrentMeshMember] = useState<MetadataEntry>();
 
   const toggleModal = (event: React.SyntheticEvent) => {
-    const member = METADATA.filter(
+    const member = METADATA.find(
       (data) => data.name === event.currentTarget.id
     );
-    setCurrentMeshMember(member[0]);
+    setCurrentMeshMember(member);
     setIsModalOpen(!isModalOpen);
   };
 
