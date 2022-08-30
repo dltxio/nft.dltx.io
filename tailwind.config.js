@@ -1,8 +1,32 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   mode: "jit",
   content: ["./dist/**/*.html", "./src/**/*.{js,jsx,ts,tsx}", "./*.html"],
   variants: {},
-  plugins: [require("daisyui")],
+  theme: {
+    fontSize: {
+      ...defaultTheme.fontSize,
+      "3xl": "1.875rem",
+      "4xl": "2.25rem",
+      "5xl": "3rem",
+      "6xl": "4rem",
+      "7xl": "5rem"
+    }
+  },
+  plugins: [
+    require("daisyui"),
+    require("tailwind-heropatterns")({
+      variants: [],
+      patterns: ["diagonal-stripes"],
+      colors: {
+        default: "white"
+      },
+      opacity: {
+        default: "0.035"
+      }
+    })
+  ],
   daisyui: {
     themes: [
       {
