@@ -15,7 +15,7 @@ export const shortenPgpOrReturnEmail = (
     return (
       <p
         key={url}
-        className={`text-inherit ${overrideStyle || "!text-xs italic"}`}
+        className={`text-inherit ${overrideStyle ? "" : "!text-xs italic"}`}
       >
         <a href={url} target="_blank" rel="noopener noreferrer">
           {url.slice(lastIndex + 1)}
