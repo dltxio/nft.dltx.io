@@ -1,6 +1,9 @@
 import React from "react";
 import { MetadataEntry } from "../static/metadata";
-import { shortenPGP, formatTwitterHandle } from "../utils/attributeUtils";
+import {
+  shortenPgpOrReturnEmail,
+  formatTwitterHandle
+} from "../utils/attributeUtils";
 
 type Props = {
   data: MetadataEntry;
@@ -18,8 +21,8 @@ const MeshMember: React.FC<Props> = (props) => {
       {data.attributes.map((attObject) =>
         Object.values(attObject).map((attribute, i) => (
           <div key={i} className="textlg">
-            {attribute.includes("@")
-              ? shortenPGP(attribute)
+            {attribute.includes("@") // if the attribute includes an @ then it's either an email or pgp url, if not then it's a twitter handle
+              ? shortenPgpOrReturnEmail(attribute)
               : formatTwitterHandle(attribute)}
           </div>
         ))

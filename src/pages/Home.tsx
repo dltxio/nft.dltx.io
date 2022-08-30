@@ -6,10 +6,10 @@ const Home = () => {
 
   return (
     <PageLayout>
-      <div className="mb-16 w-1/5">
-        <h1 className="text-center text-5xl font-black">dltx.io</h1>
-        <div className="h-[0.1rem] bg-white" />
-        <h2 className="text-center text-5xl font-black">meshies</h2>
+      <div className="mb-16 min-w-1/5 flex flex-col text-center">
+        <h1 className="text-center text-5xl font-black px-10">dltx.io</h1>
+        <div className="h-[0.1rem] bg-white min-w-full" />
+        <h2 className="text-center text-5xl font-black px-10">meshies</h2>
       </div>
       <div className="w-1/2 flex flex-col items-center">
         {wagmi.isConnected ? (
