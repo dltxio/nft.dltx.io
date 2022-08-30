@@ -7,13 +7,14 @@ import {
 
 type Props = {
   data: MetadataEntry;
-  onClick: (...args: any[]) => void;
+  onClick: (event: React.SyntheticEvent) => void;
+  id: string;
 };
 
 const MeshMember: React.FC<Props> = (props) => {
   const [hovering, setHovering] = useState(false);
 
-  const { data, onClick } = props;
+  const { data, onClick, id } = props;
 
   return (
     <div
@@ -25,8 +26,13 @@ const MeshMember: React.FC<Props> = (props) => {
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
       onClick={onClick}
+      id={id}
     >
-      <div className="rounded-[100%] overflow-hidden w-[10rem] h-[10rem] mb-4 border-2 flex flex-col justify-center items-center">
+      <div
+        className="\
+        rounded-[100%] overflow-hidden w-[10rem] h-[10rem] \
+        mb-4 border-2 flex flex-col justify-center items-center"
+      >
         <img src={data.image} alt={data.name} className="h-full object-cover" />
       </div>
       <h2
@@ -37,18 +43,21 @@ const MeshMember: React.FC<Props> = (props) => {
         {data.name.toUpperCase()}
       </h2>
       {data.attributes.map((attObject) =>
-        Object.values(attObject).map((attribute) => (
-          <div
-            key={attribute}
-            className={`transition-all duration-200 ${
-              hovering && "text-black font-bold"
-            }`}
-          >
-            {attribute.includes("@") // if the attribute includes an @ then it's either an email or pgp url, if not then it's a twitter handle
-              ? shortenPgpOrReturnEmail(attribute)
-              : formatTwitterHandle(attribute)}
-          </div>
-        ))
+        Object.values(attObject).map(
+          (attribute) =>
+            attribute && (
+              <div
+                key={attribute}
+                className={`transition-all duration-200 ${
+                  hovering && "text-black font-bold"
+                }`}
+              >
+                {attribute.includes("@") // if the attribute includes an @ then it's either an email or pgp url, if not then it's a twitter handle
+                  ? shortenPgpOrReturnEmail(attribute, false)
+                  : formatTwitterHandle(attribute)}
+              </div>
+            )
+        )
       )}
     </div>
   );

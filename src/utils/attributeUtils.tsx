@@ -1,4 +1,7 @@
-export const shortenPgpOrReturnEmail = (url: string) => {
+export const shortenPgpOrReturnEmail = (
+  url: string,
+  overrideStyle: boolean
+) => {
   if (url === "") return;
 
   // regex for if the string is a url
@@ -10,7 +13,10 @@ export const shortenPgpOrReturnEmail = (url: string) => {
   if (url.match(regex)) {
     const lastIndex = url.lastIndexOf("/");
     return (
-      <p key={url} className="text-inherit italic !text-xs">
+      <p
+        key={url}
+        className={`text-inherit ${overrideStyle || "!text-xs italic"}`}
+      >
         <a href={url} target="_blank" rel="noopener noreferrer">
           {url.slice(lastIndex + 1)}
         </a>
@@ -28,7 +34,7 @@ export const shortenPgpOrReturnEmail = (url: string) => {
 
 export const formatTwitterHandle = (handle: string) =>
   handle !== "" && (
-    <p key={handle} className="text-blue-600">
+    <p key={handle} className="text-inherit">
       <a
         href={`https://twitter.com/${handle}`}
         target="_blank"

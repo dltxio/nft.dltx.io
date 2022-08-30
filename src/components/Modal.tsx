@@ -21,7 +21,7 @@ const Modal: React.FC<Props> = (props) => {
         <Button
           title="close"
           onClick={() => setIsModalOpen(false)}
-          className="hover:!scale-100 self-end"
+          className="hover:!scale-100 self-center mt-4"
         />
       </div>
     </div>

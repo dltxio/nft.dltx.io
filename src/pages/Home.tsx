@@ -25,7 +25,7 @@ const Home = () => {
           <Button
             title="connect"
             onClick={wagmi.connect}
-            className="rounded-[50%] !px-5 !py-8"
+            className="rounded-[50%] !px-4 !py-8"
           />
         )}
       </div>
