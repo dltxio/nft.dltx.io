@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import METADATA, { MetadataEntry } from "../static/metadata";
-import { MeshMember, Modal } from "../components";
-import {
-  shortenPgpOrReturnEmail,
-  formatTwitterHandle
-} from "../utils/attributeUtils";
+import { MeshMember, MeshModal } from "../components";
 
 const Mesh: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,39 +27,11 @@ const Mesh: React.FC = () => {
         ))}
       </div>
 
-      <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
-        <div
-          className="\
-          rounded-[100%] overflow-hidden w-[14rem] h-[14rem] \
-          mb-4 border-2 flex flex-col justify-center items-center"
-        >
-          <img
-            src={currentMeshMember?.image}
-            alt={currentMeshMember?.name}
-            className="h-full object-cover"
-          />
-        </div>
-        <h2 className="text-3xl font-bold">
-          {currentMeshMember?.name.toUpperCase()}
-        </h2>
-        <h3 className="text-xl font-bold mb-4">
-          {currentMeshMember?.description.toUpperCase()}
-        </h3>
-        <div className="w-full flex flex-row items-center gap-x-4 justify-evenly text-center mb-4 flex-wrap">
-          {currentMeshMember?.attributes.map((attObject) =>
-            Object.values(attObject).map(
-              (attribute) =>
-                attribute && (
-                  <div key={attribute}>
-                    {attribute.includes("@") // if the attribute includes an @ then it's either an email or pgp url, if not then it's a twitter handle
-                      ? shortenPgpOrReturnEmail(attribute, true)
-                      : formatTwitterHandle(attribute)}
-                  </div>
-                )
-            )
-          )}
-        </div>
-      </Modal>
+      <MeshModal
+        currentMeshMember={currentMeshMember}
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      />
     </>
   );
 };
