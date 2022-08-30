@@ -7,6 +7,26 @@ import { default as Five } from "./5.json";
 import { default as Six } from "./6.json";
 import { default as Nine } from "./9.json";
 
-const METADATA = [Zero, One, Two, Three, Four, Five, Six, Nine];
+export type MetadataEntry = {
+  description: string;
+  image: string;
+  name: string;
+  attributes: {
+    twitter?: string;
+    email?: string;
+    pgp?: string;
+  }[];
+};
+
+const METADATA: MetadataEntry[] = [
+  Zero,
+  One,
+  Two,
+  Three,
+  Four,
+  Five,
+  Six,
+  Nine
+];
 
 export default METADATA;

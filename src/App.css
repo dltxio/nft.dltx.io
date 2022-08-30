@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ignore vite warning, tailwind definitions need to go first */
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700;900&display=swap");
 
 * {
