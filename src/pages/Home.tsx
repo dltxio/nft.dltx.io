@@ -1,5 +1,5 @@
 import { useWagmi } from "../hooks";
-import { PageLayout, Button, Mesh, Modal } from "../components";
+import { PageLayout, Button, Mesh } from "../components";
 
 const Home = () => {
   const wagmi = useWagmi();
@@ -20,7 +20,6 @@ const Home = () => {
               onClick={wagmi.disconnect}
               className="mt-12 rounded-[50%] !px-5 !py-12"
             />
-            <Modal />
           </>
         ) : (
           <Button

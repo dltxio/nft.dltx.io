@@ -7,12 +7,13 @@ import {
 
 type Props = {
   data: MetadataEntry;
+  onClick: (...args: any[]) => void;
 };
 
 const MeshMember: React.FC<Props> = (props) => {
   const [hovering, setHovering] = useState(false);
 
-  const { data } = props;
+  const { data, onClick } = props;
 
   return (
     <div
@@ -23,6 +24,7 @@ const MeshMember: React.FC<Props> = (props) => {
         duration-200 transition-all hover:!bg-white"
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
+      onClick={onClick}
     >
       <div className="rounded-[100%] overflow-hidden w-[10rem] h-[10rem] mb-4 border-2 flex flex-col justify-center items-center">
         <img src={data.image} alt={data.name} className="h-full object-cover" />
