@@ -18,6 +18,15 @@ export type MetadataEntry = {
   }[];
 };
 
-const METADATA = [Zero, One, Two, Three, Four, Five, Six, Nine];
+const METADATA: MetadataEntry[] = [
+  Zero,
+  One,
+  Two,
+  Three,
+  Four,
+  Five,
+  Six,
+  Nine
+];
 
 export default METADATA;
