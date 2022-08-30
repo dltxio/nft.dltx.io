@@ -31,9 +31,9 @@ const MeshMember: React.FC<Props> = (props) => {
         {data.name.toUpperCase()}
       </h2>
       {data.attributes.map((attObject) =>
-        Object.values(attObject).map((attribute, i) => (
+        Object.values(attObject).map((attribute) => (
           <div
-            key={i}
+            key={attribute}
             className={`transition-all duration-200 ${
               hovering && "text-black font-bold"
             }`}
