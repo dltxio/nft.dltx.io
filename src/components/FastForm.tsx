@@ -26,7 +26,7 @@ type FormReturnType = {
 };
 
 const FastForm: React.FC<Props> = (props) => {
-  const { title, inputs, submitTitle, onSubmit, styles } = props;
+  const { title, inputs, submitTitle = "Submit", onSubmit, styles } = props;
 
   const [formState, setFormState] = useState<FormReturnType[]>([]);
 
@@ -104,13 +104,7 @@ const FastForm: React.FC<Props> = (props) => {
           duration-150 hover:bg-black hover:text-white hover:font-normal"
         }
       >
-        {submitTitle
-          ? styles?.submitUpper
-            ? submitTitle.toUpperCase()
-            : submitTitle
-          : styles?.submitUpper
-          ? "SUBMIT"
-          : "Submit"}
+        {styles?.submitUpper ? submitTitle.toUpperCase() : submitTitle}
       </button>
     </div>
   );
