@@ -10,10 +10,7 @@ const Modal: React.FC<Props> = (props) => {
   const { isModalOpen, setIsModalOpen } = props;
 
   return (
-    <div
-      className={`modal ${isModalOpen ? "modal-open" : ""}`}
-      onClick={() => setIsModalOpen(false)}
-    >
+    <div className={`modal ${isModalOpen ? "modal-open" : ""}`}>
       <div className="modal-box flex flex-col bg-black border-[1.5px] border-white/20">
         <div className="w-full flex flex-col justify-center items-center">
           {props.children}
