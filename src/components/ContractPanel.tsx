@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Mesh } from "../contracts/Mesh";
-import { Button } from "../components";
+import { Button, MintModal, BurnModal } from "../components";
 import { shortenAddress } from "../utils/shortenAddress";
 
 type Props = {
@@ -12,6 +12,9 @@ const ContractPanel: React.FC<Props> = (props) => {
   const [authed, setAuthed] = useState(false);
   const [error, setError] = useState<string>();
   const [loading, setLoading] = useState(false);
+
+  const [isMintModalOpen, setIsMintModalOpen] = useState(false);
+  const [isBurnModalOpen, setIsBurnModalOpen] = useState(false);
 
   const { contract, address } = props;
 
@@ -36,11 +39,11 @@ const ContractPanel: React.FC<Props> = (props) => {
   };
 
   const mint = () => {
-    alert("mint");
+    setIsMintModalOpen(true);
   };
 
   const burn = () => {
-    alert("burn");
+    setIsBurnModalOpen(true);
   };
 
   return (
@@ -92,6 +95,15 @@ const ContractPanel: React.FC<Props> = (props) => {
           )}
         </div>
       )}
+
+      <MintModal
+        isModalOpen={isMintModalOpen}
+        setIsModalOpen={setIsMintModalOpen}
+      />
+      <BurnModal
+        isModalOpen={isBurnModalOpen}
+        setIsModalOpen={setIsBurnModalOpen}
+      />
     </div>
   );
 };
