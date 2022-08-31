@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export type FormProps = {
+export type FastFormProps = {
   title?: string;
   inputs:
     | number
@@ -9,7 +9,7 @@ export type FormProps = {
         title?: string;
       }[];
   submitTitle?: string;
-  onSubmit: (data: FormReturnObject[]) => void;
+  onSubmit: (data: FastFormReturnObject[]) => void;
   styles?: {
     title?: string;
     titleUpper?: true;
@@ -20,15 +20,15 @@ export type FormProps = {
   };
 };
 
-export type FormReturnObject = {
+export type FastFormReturnObject = {
   title: string;
   value: string;
 };
 
-const FastForm: React.FC<FormProps> = (props) => {
+const FastForm: React.FC<FastFormProps> = (props) => {
   const { title, inputs, submitTitle = "Submit", onSubmit, styles } = props;
 
-  const [formState, setFormState] = useState<FormReturnObject[]>([]);
+  const [formState, setFormState] = useState<FastFormReturnObject[]>([]);
 
   return (
     <div
