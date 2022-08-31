@@ -2,77 +2,116 @@ import React, { useState } from "react";
 
 type Props = {
   title?: string;
-  inputs: number;
-  inputTypes?: string[];
-  inputTitles?: string[];
-  submitTitle: string;
-  onSubmit: (...args: any[]) => void;
+  inputs:
+    | number
+    | {
+        type?: string;
+        title?: string;
+      }[];
+  submitTitle?: string;
+  onSubmit: (data: FormReturnType[]) => void;
   styles?: {
     title?: string;
     titleUpper?: true;
-    input?: string;
+    inputs?: string;
     submit?: string;
     submitUpper?: true;
+    background?: string;
   };
 };
 
-const FastForm: React.FC<Props> = (props) => {
-  const {
-    title,
-    inputs,
-    inputTypes,
-    inputTitles,
-    submitTitle,
-    onSubmit,
-    styles
-  } = props;
+type FormReturnType = {
+  title: string;
+  value: string;
+};
 
-  const [formState, setFormState] = useState([...Array(inputs)].map(() => ""));
+const FastForm: React.FC<Props> = (props) => {
+  const { title, inputs, submitTitle, onSubmit, styles } = props;
+
+  const [formState, setFormState] = useState<FormReturnType[]>([]);
 
   return (
-    <div className="w-full flex flex-col items-center mb-2">
+    <div
+      className={
+        styles?.background ||
+        "w-full flex flex-col items-center mb-2 bg-white p-2 rounded-xl"
+      }
+    >
       {/* form title */}
       {title && (
         <h1
           key="ff-title"
-          className={styles?.title || "text-xl font-black text-white mb-2"}
+          className={styles?.title || "text-xl font-black text-black mb-2"}
         >
           {styles?.titleUpper ? title.toUpperCase() : title}
         </h1>
       )}
 
       {/* form inputs */}
-      {[...Array(inputs)].map((input, i) => (
-        <input
-          key={`ff-input-${input}`}
-          type={inputTypes ? inputTypes[i] : "text"}
-          placeholder={inputTitles ? inputTitles[i] : ""}
-          className={
-            styles?.input ||
-            "border-[1.5px] border-white/20 w-full bg-black \
-            text-white rounded-md mb-2 px-2 py-1"
-          }
-          onChange={(e) => {
-            const newState = formState;
-            newState[i] = e.currentTarget.value;
-            setFormState(newState);
-          }}
-        />
-      ))}
+      {typeof inputs === "number"
+        ? [...Array(inputs).keys()].map((i) => (
+            <input
+              key={`ff-input-${i}`}
+              type="text"
+              className={
+                styles?.inputs ||
+                "border-2 border-black w-full bg-white \
+              text-black rounded-md mb-2 px-2 py-1"
+              }
+              onChange={(e) => {
+                const value = e.currentTarget.value;
+                setFormState((prevState) => {
+                  prevState[i] = {
+                    title: `ff-input-${i}`,
+                    value
+                  };
+                  return [...prevState];
+                });
+              }}
+            />
+          ))
+        : inputs.map((input, i) => (
+            <input
+              key={input.title ? `ff-input-${input.title}` : `ff-input-${i}`}
+              type={input.type || "text"}
+              placeholder={input.title || ""}
+              className={
+                styles?.inputs ||
+                "border-2 border-black w-full bg-white \
+              text-black rounded-md mb-2 px-2 py-1"
+              }
+              onChange={(e) => {
+                const value = e.currentTarget.value;
+                setFormState((prevState) => {
+                  prevState[i] = {
+                    title: `${input.title || `ff-input-${i}`}`,
+                    value
+                  };
+                  return [...prevState];
+                });
+              }}
+            />
+          ))}
 
       {/* form submit button */}
-      <div
+      <button
         key="ff-submit"
         onClick={() => onSubmit(formState)}
         className={
           styles?.submit ||
-          "cursor-pointer w-full text-center py-1 text-white \
-          bg-black border-2 border-white rounded-md transition-all \
-          duration-150 hover:bg-white hover:text-black hover:font-bold"
+          "w-full text-center py-1 text-black font-bold \
+          bg-white border-2 border-black rounded-md transition-all \
+          duration-150 hover:bg-black hover:text-white hover:font-normal"
         }
       >
-        {styles?.submitUpper ? submitTitle.toUpperCase() : submitTitle}
-      </div>
+        {submitTitle
+          ? styles?.submitUpper
+            ? submitTitle.toUpperCase()
+            : submitTitle
+          : styles?.submitUpper
+          ? "SUBMIT"
+          : "Submit"}
+      </button>
     </div>
   );
 };
