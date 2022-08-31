@@ -13,6 +13,11 @@ const Home: React.FC = () => {
           <>
             <Mesh />
             <Button
+              title="go to dashboard"
+              onClick={() => location.replace("/dashboard")}
+              className="mt-12"
+            />
+            <Button
               title="disconnect"
               onClick={wagmi.disconnect}
               className="mt-12 rounded-[50%] !px-5 !py-12"

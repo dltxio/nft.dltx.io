@@ -17,7 +17,7 @@ const ContractPanel: React.FC<Props> = (props) => {
 
   const authenticate = () => {
     const balance = contract.balanceOf(
-      "0xe33c15ddf8d2afad6e17f9935a1af90c21ca7b0d"
+      "0xe33c15ddf8d2afad6e17f9935a1af90c21ca7b0d" // my (brett's) address - don't hack me
     ); // TODO: make this only accessible from the Owner or approved addresses, I don't have Lorenzo's priv key though, so for now it just checks if you have one or not
 
     setLoading(true);
@@ -33,6 +33,14 @@ const ContractPanel: React.FC<Props> = (props) => {
 
   const logout = () => {
     setAuthed(false);
+  };
+
+  const mint = () => {
+    alert("mint");
+  };
+
+  const burn = () => {
+    alert("burn");
   };
 
   return (
@@ -57,7 +65,21 @@ const ContractPanel: React.FC<Props> = (props) => {
               />
             </svg>
           </div>
-          <div></div>
+
+          <div className="w-full flex flex-col justify-center items-center box-border">
+            <div className="w-1/3 flex flex-row justify-between mt-6">
+              <Button
+                title="mint"
+                onClick={mint}
+                className="hover:bg-green-600 hover:text-white hover:scale-[1.3]"
+              />
+              <Button
+                title="burn"
+                onClick={burn}
+                className="hover:bg-red-600 hover:text-white hover:scale-[1.3]"
+              />
+            </div>
+          </div>
         </div>
       ) : (
         <div className="h-[40vh] flex flex-col justify-center items-center box-border">
