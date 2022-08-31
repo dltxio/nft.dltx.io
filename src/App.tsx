@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { WagmiConfig, createClient } from "wagmi";
 import { getDefaultProvider } from "ethers";
-import { Home, Admin } from "./pages";
+import { Home, Dashboard } from "./pages";
 import { ApiProvider } from "./providers/Api";
 
 const client = createClient({
@@ -16,7 +16,7 @@ export const App = () => {
         <WagmiConfig client={client}>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
         </WagmiConfig>
       </ApiProvider>
