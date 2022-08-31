@@ -1,32 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
+import { Mesh } from "../contracts/Mesh";
 import { Modal, FastForm } from "../components";
 import { FastFormReturnObject } from "./FastForm";
 
 type Props = {
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  contract: Mesh;
 };
 
-const MintModal: React.FC<Props> = (props) => {
-  const { isModalOpen, setIsModalOpen } = props;
+const FormInputs = [
+  {
+    title: "to (address)"
+  },
+  {
+    title: "startTimestamp (uint256)"
+  }
+];
 
-  const mint = (data: FastFormReturnObject[]) => {
-    console.log(data);
+const MintModal: React.FC<Props> = (props) => {
+  const { isModalOpen, setIsModalOpen } = props; // contract
+
+  const [error, setError] = useState<string>();
+  const [loading, setLoading] = useState(false);
+
+  const mint = (formData: FastFormReturnObject[]) => {
+    try {
+      const to = formData.find((data) => data.title.includes("to"));
+      const startTimestamp = formData.find((data) =>
+        data.title.includes("start")
+      );
+
+      if (!to || !startTimestamp) throw new Error("No form data!");
+
+      // TODO: add mint
+    } catch (error) {
+      setError(error as string);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
       <FastForm
         title="mint a new meshie"
-        inputs={[
-          {
-            title: "to (address)"
-          },
-          {
-            title: "startTimestamp (uint256)"
-          }
-        ]}
-        submitTitle="mint"
+        inputs={FormInputs}
+        submitTitle={loading ? "loading..." : "mint"}
         onSubmit={mint}
         styles={{
           titleUpper: true,
@@ -42,6 +62,7 @@ const MintModal: React.FC<Props> = (props) => {
             border-2 border-white rounded-md py-1"
         }}
       />
+      {error && <div>{error}</div>}
     </Modal>
   );
 };

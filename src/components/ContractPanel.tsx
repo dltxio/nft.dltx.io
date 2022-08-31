@@ -19,19 +19,25 @@ const ContractPanel: React.FC<Props> = (props) => {
   const { contract, address } = props;
 
   const authenticate = () => {
-    const balance = contract.balanceOf(
-      "0xe33c15ddf8d2afad6e17f9935a1af90c21ca7b0d" // my (brett's) address - don't hack me
-    ); // TODO: make this only accessible from the Owner or approved addresses, I don't have Lorenzo's priv key though, so for now it just checks if you have one or not
+    try {
+      const balance = contract.balanceOf(
+        "0xe33c15ddf8d2afad6e17f9935a1af90c21ca7b0d" // my (brett's) address - don't hack me
+      ); // TODO: make this only accessible from the Owner or approved addresses, I don't have Lorenzo's priv key though, so for now it just checks if you have one or not
 
-    setLoading(true);
+      setLoading(true);
 
-    balance.then((result) => {
-      if (+result < 1) return setError("No meshies owned by your address!");
+      balance.then((result) => {
+        if (+result < 1) return setError("No meshies owned by your address!");
 
+        setLoading(false);
+        setError(undefined);
+        setAuthed(true);
+      });
+    } catch (err: any) {
       setLoading(false);
-      setError(undefined);
-      setAuthed(true);
-    });
+      setError(err as string);
+      setAuthed(false);
+    }
   };
 
   const logout = () => {
@@ -99,6 +105,7 @@ const ContractPanel: React.FC<Props> = (props) => {
       <MintModal
         isModalOpen={isMintModalOpen}
         setIsModalOpen={setIsMintModalOpen}
+        contract={contract}
       />
       <BurnModal
         isModalOpen={isBurnModalOpen}
