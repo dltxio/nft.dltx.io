@@ -14,13 +14,14 @@ const MintModal: React.FC<Props> = (props) => {
   const [error, setError] = useState<any>();
   const [loading, setLoading] = useState(false);
   const [address, setAddress] = useState("");
-  const [timestamp, setTimestamp] = useState("");
+  const [timestamp, setTimestamp] = useState<number>();
   const [transaction, setTransaction] = useState("");
 
   const mint = async () => {
     const matchingAddress = address.match(/^0x[a-fA-F0-9]{40}$/);
 
     if (!matchingAddress) return setError("Address must be a valid");
+    if (!timestamp) return setError("No timestamp provided!");
 
     try {
       setError("");
@@ -48,7 +49,7 @@ const MintModal: React.FC<Props> = (props) => {
       <input
         placeholder="startTimestamp (uint256)"
         className="w-full bg-black text-white border-2 border-white px-3 py-1 rounded-lg mb-4"
-        onChange={(e) => setTimestamp(e.currentTarget.value)}
+        onChange={(e) => setTimestamp(+e.currentTarget.value)}
         type="number"
       />
       <Button
