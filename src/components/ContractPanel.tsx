@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Mesh } from "../contracts/Mesh";
-import { Button, MintModal, BurnModal } from "../components";
+import { Button, OwnerPanel, MemberPanel } from "../components";
 import { shortenAddress } from "../utils/shortenAddress";
 
 type Props = {
@@ -12,17 +12,26 @@ const ContractPanel: React.FC<Props> = (props) => {
   const [authed, setAuthed] = useState(false);
   const [error, setError] = useState<unknown>();
   const [loading, setLoading] = useState(false);
-
-  const [isMintModalOpen, setIsMintModalOpen] = useState(false);
-  const [isBurnModalOpen, setIsBurnModalOpen] = useState(false);
+  const [owner, setOwner] = useState(false);
 
   const { contract, address } = props;
+
+  useEffect(() => {
+    contract
+      .owner()
+      .then((owner) => {
+        if (owner === address) return setOwner(true);
+      })
+      .catch((err) => setError(err));
+  }, [address]);
 
   const authenticate = async () => {
     try {
       setLoading(true);
 
-      const balance = await contract.balanceOf(address);
+      const balance = await contract.balanceOf(
+        "0xe33c15ddf8d2afad6e17f9935a1af90c21ca7b0d"
+      );
 
       if (balance.toNumber() < 1)
         return setError("No meshies owned by your address!");
@@ -64,18 +73,11 @@ const ContractPanel: React.FC<Props> = (props) => {
           </div>
 
           <div className="w-full flex flex-col justify-center items-center box-border">
-            <div className="w-1/3 flex flex-row justify-between mt-6">
-              <Button
-                title="mint"
-                onClick={() => setIsMintModalOpen(true)}
-                className="hover:bg-green-600 hover:text-white hover:scale-[1.3] transition-all duration-150"
-              />
-              <Button
-                title="terminate"
-                onClick={() => setIsBurnModalOpen(true)}
-                className="hover:bg-red-600 hover:text-white hover:scale-[1.3] transition-all duration-150"
-              />
-            </div>
+            {owner ? (
+              <OwnerPanel contract={contract} />
+            ) : (
+              <MemberPanel address={address} />
+            )}
           </div>
         </div>
       ) : (
@@ -92,17 +94,6 @@ const ContractPanel: React.FC<Props> = (props) => {
           )}
         </div>
       )}
-
-      <MintModal
-        isModalOpen={isMintModalOpen}
-        setIsModalOpen={setIsMintModalOpen}
-        contract={contract}
-      />
-      <BurnModal
-        isModalOpen={isBurnModalOpen}
-        setIsModalOpen={setIsBurnModalOpen}
-        contract={contract}
-      />
     </div>
   );
 };
