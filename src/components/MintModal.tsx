@@ -26,7 +26,7 @@ const MintModal: React.FC<Props> = (props) => {
       setError("");
       setLoading(true);
       const tx = await contract.mint(address, timestamp);
-      setTransaction(tx.hash);
+      return setTransaction(tx.hash);
     } catch (error: any) {
       return setError(error);
     } finally {

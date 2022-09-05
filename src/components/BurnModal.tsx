@@ -23,7 +23,7 @@ const BurnModal: React.FC<Props> = (props) => {
       setError("");
       setLoading(true);
       const tx = await contract.terminateNow(index);
-      setTransaction(tx.hash);
+      return setTransaction(tx.hash);
     } catch (error: any) {
       return setError(error);
     } finally {
