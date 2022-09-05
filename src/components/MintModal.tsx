@@ -63,7 +63,14 @@ const MintModal: React.FC<Props> = (props) => {
       )}
       {transaction && (
         <div className="w-full text-center font-bold bg-green-600 mt-2 rounded-lg px-2 py-2 whitespace-nowrap overflow-hidden">
-          {JSON.stringify(transaction)}
+          <a
+            href={`https://etherscan.io/tx/${transaction}`}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="underline cursor-pointer"
+          >
+            View Transaction
+          </a>
         </div>
       )}
     </Modal>

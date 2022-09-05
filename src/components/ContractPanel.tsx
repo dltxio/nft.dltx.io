@@ -20,23 +20,20 @@ const ContractPanel: React.FC<Props> = (props) => {
 
   const authenticate = () => {
     try {
-      const balance = contract.balanceOf(
-        "0xe33c15ddf8d2afad6e17f9935a1af90c21ca7b0d" // my (brett's) address - don't hack me
-      ); // TODO: make this only accessible from the Owner or approved addresses, I don't have Lorenzo's priv key though, so for now it just checks if you have one or not
+      const balance = contract.balanceOf(address);
 
       setLoading(true);
 
       balance.then((result) => {
         if (+result < 1) return setError("No meshies owned by your address!");
-
-        setLoading(false);
         setError(undefined);
-        setAuthed(true);
+        return setAuthed(true);
       });
     } catch (err: any) {
-      setLoading(false);
       setError(err as string);
-      setAuthed(false);
+      return setAuthed(false);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -44,11 +41,11 @@ const ContractPanel: React.FC<Props> = (props) => {
     setAuthed(false);
   };
 
-  const mint = () => {
+  const mintModalOpen = () => {
     setIsMintModalOpen(true);
   };
 
-  const burn = () => {
+  const burnModalOpen = () => {
     setIsBurnModalOpen(true);
   };
 
@@ -79,12 +76,12 @@ const ContractPanel: React.FC<Props> = (props) => {
             <div className="w-1/3 flex flex-row justify-between mt-6">
               <Button
                 title="mint"
-                onClick={mint}
+                onClick={mintModalOpen}
                 className="hover:bg-green-600 hover:text-white hover:scale-[1.3]"
               />
               <Button
-                title="burn"
-                onClick={burn}
+                title="terminate"
+                onClick={burnModalOpen}
                 className="hover:bg-red-600 hover:text-white hover:scale-[1.3]"
               />
             </div>
@@ -110,6 +107,7 @@ const ContractPanel: React.FC<Props> = (props) => {
       <BurnModal
         isModalOpen={isBurnModalOpen}
         setIsModalOpen={setIsBurnModalOpen}
+        contract={contract}
       />
     </div>
   );
