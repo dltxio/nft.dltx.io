@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "generate-contract-types && tsc && vite build",
+    "build": "tsc && vite build",
     "serve": "vite preview --port 3000",
     "lint": "eslint . --ext .ts,.tsx,.js --fix --max-warnings 0",
     "format": "prettier --write './'",
