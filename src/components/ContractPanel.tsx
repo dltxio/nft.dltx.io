@@ -18,17 +18,16 @@ const ContractPanel: React.FC<Props> = (props) => {
 
   const { contract, address } = props;
 
-  const authenticate = () => {
+  const authenticate = async () => {
     try {
-      const balance = contract.balanceOf(address);
-
       setLoading(true);
 
-      balance.then((result) => {
-        if (+result < 1) return setError("No meshies owned by your address!");
-        setError(undefined);
-        return setAuthed(true);
-      });
+      const balance = await contract.balanceOf(address);
+
+      if (balance.toNumber() < 1)
+        return setError("No meshies owned by your address!");
+      setError(undefined);
+      return setAuthed(true);
     } catch (err: any) {
       setError(err as string);
       return setAuthed(false);
