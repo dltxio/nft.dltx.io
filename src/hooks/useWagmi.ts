@@ -1,4 +1,4 @@
-import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { useAccount, useConnect, useDisconnect, useSigner } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 
 const useWagmi = () => {
@@ -7,12 +7,14 @@ const useWagmi = () => {
     connector: new InjectedConnector()
   });
   const { disconnect } = useDisconnect();
+  const { data: signer } = useSigner();
 
   return {
     address,
     isConnected,
     connect,
-    disconnect
+    disconnect,
+    signer
   };
 };
 
