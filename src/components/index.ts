@@ -8,4 +8,3 @@ export { default as Logo } from "./Logo";
 export { default as ContractPanel } from "./ContractPanel";
 export { default as MintModal } from "./MintModal";
 export { default as BurnModal } from "./BurnModal";
-export { default as FastForm } from "./FastForm";
