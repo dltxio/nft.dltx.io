@@ -5,7 +5,7 @@ type Props = {
   address: string;
 };
 
-const OwnerPanel: React.FC<Props> = (props) => {
+const MemberPanel: React.FC<Props> = (props) => {
   const { address } = props;
 
   const [isSudoApplicationModalOpen, setIsSudoApplicationModalOpen] =
@@ -30,4 +30,4 @@ const OwnerPanel: React.FC<Props> = (props) => {
   );
 };
 
-export default OwnerPanel;
+export default MemberPanel;

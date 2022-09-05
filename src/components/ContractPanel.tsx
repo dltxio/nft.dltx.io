@@ -12,18 +12,13 @@ const ContractPanel: React.FC<Props> = (props) => {
   const [authed, setAuthed] = useState(false);
   const [error, setError] = useState<unknown>();
   const [loading, setLoading] = useState(false);
-  const [owner, setOwner] = useState(false);
+  const [owner, setOwner] = useState("");
 
   const { contract, address } = props;
 
   useEffect(() => {
-    contract
-      .owner()
-      .then((owner) => {
-        if (owner === address) return setOwner(true);
-      })
-      .catch((err) => setError(err));
-  }, [address]);
+    contract.owner().then(setOwner).catch(setError);
+  }, []);
 
   const authenticate = async () => {
     try {
@@ -31,8 +26,7 @@ const ContractPanel: React.FC<Props> = (props) => {
 
       const balance = await contract.balanceOf(address);
 
-      if (balance.toNumber() < 1)
-        return setError("No meshies owned by your address!");
+      if (balance.lt(1)) return setError("No meshies owned by your address!");
       setError(undefined);
       return setAuthed(true);
     } catch (err: unknown) {
@@ -71,7 +65,7 @@ const ContractPanel: React.FC<Props> = (props) => {
           </div>
 
           <div className="w-full flex flex-col justify-center items-center box-border">
-            {owner ? (
+            {address.toLowerCase() === owner.toLowerCase() ? (
               <OwnerPanel contract={contract} />
             ) : (
               <MemberPanel address={address} />
