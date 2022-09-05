@@ -29,9 +29,7 @@ const ContractPanel: React.FC<Props> = (props) => {
     try {
       setLoading(true);
 
-      const balance = await contract.balanceOf(
-        "0xe33c15ddf8d2afad6e17f9935a1af90c21ca7b0d"
-      );
+      const balance = await contract.balanceOf(address);
 
       if (balance.toNumber() < 1)
         return setError("No meshies owned by your address!");
