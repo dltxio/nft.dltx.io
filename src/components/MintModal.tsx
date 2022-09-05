@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Mesh } from "../contracts/Mesh";
 import { Button, Modal } from "../components";
+import { ethers } from "ethers";
 
 type Props = {
   isModalOpen: boolean;
@@ -18,9 +19,8 @@ const MintModal: React.FC<Props> = (props) => {
   const [transaction, setTransaction] = useState("");
 
   const mint = async () => {
-    const matchingAddress = address.match(/^0x[a-fA-F0-9]{40}$/);
-
-    if (!matchingAddress) return setError("Address must be a valid");
+    if (!ethers.utils.isAddress(address))
+      return setError("Address must be a valid");
     if (!timestamp) return setError("No timestamp provided!");
 
     try {
