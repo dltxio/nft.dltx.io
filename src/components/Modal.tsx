@@ -19,6 +19,7 @@ const Modal: React.FC<Props> = (props) => {
           title="close"
           onClick={() => setIsModalOpen(false)}
           className="hover:!scale-100 self-center mt-4"
+          expands
         />
       </div>
     </div>

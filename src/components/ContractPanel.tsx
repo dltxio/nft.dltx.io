@@ -10,7 +10,7 @@ type Props = {
 
 const ContractPanel: React.FC<Props> = (props) => {
   const [authed, setAuthed] = useState(false);
-  const [error, setError] = useState<string>();
+  const [error, setError] = useState<unknown>();
   const [loading, setLoading] = useState(false);
 
   const [isMintModalOpen, setIsMintModalOpen] = useState(false);
@@ -28,8 +28,8 @@ const ContractPanel: React.FC<Props> = (props) => {
         return setError("No meshies owned by your address!");
       setError(undefined);
       return setAuthed(true);
-    } catch (err: any) {
-      setError(err as string);
+    } catch (err: unknown) {
+      setError(err);
       return setAuthed(false);
     } finally {
       setLoading(false);
@@ -38,14 +38,6 @@ const ContractPanel: React.FC<Props> = (props) => {
 
   const logout = () => {
     setAuthed(false);
-  };
-
-  const mintModalOpen = () => {
-    setIsMintModalOpen(true);
-  };
-
-  const burnModalOpen = () => {
-    setIsBurnModalOpen(true);
   };
 
   return (
@@ -75,13 +67,13 @@ const ContractPanel: React.FC<Props> = (props) => {
             <div className="w-1/3 flex flex-row justify-between mt-6">
               <Button
                 title="mint"
-                onClick={mintModalOpen}
-                className="hover:bg-green-600 hover:text-white hover:scale-[1.3]"
+                onClick={() => setIsMintModalOpen(true)}
+                className="hover:bg-green-600 hover:text-white hover:scale-[1.3] transition-all duration-150"
               />
               <Button
                 title="terminate"
-                onClick={burnModalOpen}
-                className="hover:bg-red-600 hover:text-white hover:scale-[1.3]"
+                onClick={() => setIsBurnModalOpen(true)}
+                className="hover:bg-red-600 hover:text-white hover:scale-[1.3] transition-all duration-150"
               />
             </div>
           </div>
@@ -91,9 +83,12 @@ const ContractPanel: React.FC<Props> = (props) => {
           <Button
             title={loading ? "loading..." : "authenticate"}
             onClick={authenticate}
+            expands
           />
           {error && (
-            <div className="mt-4 py-2 px-4 bg-red-600 rounded-lg">{error}</div>
+            <div className="mt-4 py-2 px-4 bg-red-600 rounded-lg whitespace-nowrap overflow-hidden">
+              {JSON.stringify(error)}
+            </div>
           )}
         </div>
       )}

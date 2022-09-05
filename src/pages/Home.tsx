@@ -16,11 +16,13 @@ const Home: React.FC = () => {
               title="go to dashboard"
               onClick={() => location.replace("/dashboard")}
               className="mt-12"
+              expands
             />
             <Button
               title="disconnect"
               onClick={wagmi.disconnect}
               className="mt-12 rounded-[50%] !px-5 !py-12"
+              expands
             />
           </>
         ) : (
@@ -28,6 +30,7 @@ const Home: React.FC = () => {
             title="connect"
             onClick={wagmi.connect}
             className="rounded-[50%] !px-4 !py-8"
+            expands
           />
         )}
       </div>

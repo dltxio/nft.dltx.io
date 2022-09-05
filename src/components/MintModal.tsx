@@ -12,7 +12,7 @@ type Props = {
 const MintModal: React.FC<Props> = (props) => {
   const { isModalOpen, setIsModalOpen, contract } = props;
 
-  const [error, setError] = useState<any>();
+  const [error, setError] = useState<unknown>();
   const [loading, setLoading] = useState(false);
   const [address, setAddress] = useState("");
   const [timestamp, setTimestamp] = useState<number>();
@@ -28,7 +28,7 @@ const MintModal: React.FC<Props> = (props) => {
       setLoading(true);
       const tx = await contract.mint(address, timestamp);
       return setTransaction(tx.hash);
-    } catch (error: any) {
+    } catch (error: unknown) {
       return setError(error);
     } finally {
       setLoading(false);
@@ -53,7 +53,7 @@ const MintModal: React.FC<Props> = (props) => {
         type="number"
       />
       <Button
-        className="w-full text-center hover:scale-100"
+        className="w-full text-center hover:bg-white hover:text-black hover:font-black transition-all duration-150"
         title={loading ? "loading..." : "mint"}
         onClick={mint}
       />

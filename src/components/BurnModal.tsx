@@ -11,7 +11,7 @@ type Props = {
 const BurnModal: React.FC<Props> = (props) => {
   const { isModalOpen, setIsModalOpen, contract } = props;
 
-  const [error, setError] = useState<any>();
+  const [error, setError] = useState<unknown>();
   const [loading, setLoading] = useState(false);
   const [index, setIndex] = useState<number>();
   const [transaction, setTransaction] = useState("");
@@ -24,7 +24,7 @@ const BurnModal: React.FC<Props> = (props) => {
       setLoading(true);
       const tx = await contract.terminateNow(index);
       return setTransaction(tx.hash);
-    } catch (error: any) {
+    } catch (error: unknown) {
       return setError(error);
     } finally {
       setLoading(false);
@@ -44,7 +44,7 @@ const BurnModal: React.FC<Props> = (props) => {
         maxLength={2}
       />
       <Button
-        className="w-full text-center hover:scale-100"
+        className="w-full text-center hover:bg-white hover:text-black hover:font-black transition-all duration-150"
         title={loading ? "loading..." : "terminate"}
         onClick={terminate}
       />

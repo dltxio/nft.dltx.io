@@ -13,7 +13,7 @@ const Dashboard: React.FC = () => {
     if (!wagmi.signer || !wagmi.address) return;
 
     if (!process.env.VITE_PROXY_ADDRESS)
-      throw new Error("Error: no proxy address in env!");
+      throw new Error("cannot find environment variable VITE_PROXY_ADDRESS");
 
     const meshieContract = Mesh__factory.connect(
       process.env.VITE_PROXY_ADDRESS,
