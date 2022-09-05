@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { WagmiConfig, createClient } from "wagmi";
 import { getDefaultProvider } from "ethers";
 import { Home, Dashboard } from "./pages";
-import { ApiProvider } from "./providers/Api";
 
 const client = createClient({
   autoConnect: true,
@@ -12,14 +11,12 @@ const client = createClient({
 export const App = () => {
   return (
     <BrowserRouter>
-      <ApiProvider>
-        <WagmiConfig client={client}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-          </Routes>
-        </WagmiConfig>
-      </ApiProvider>
+      <WagmiConfig client={client}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </WagmiConfig>
     </BrowserRouter>
   );
 };

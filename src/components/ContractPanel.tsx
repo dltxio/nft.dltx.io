@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Mesh } from "../contracts/Mesh";
-import { Button, MintModal, BurnModal } from "../components";
+import { Button, OwnerPanel, MemberPanel } from "../components";
 import { shortenAddress } from "../utils/shortenAddress";
 
 type Props = {
@@ -12,11 +12,13 @@ const ContractPanel: React.FC<Props> = (props) => {
   const [authed, setAuthed] = useState(false);
   const [error, setError] = useState<unknown>();
   const [loading, setLoading] = useState(false);
-
-  const [isMintModalOpen, setIsMintModalOpen] = useState(false);
-  const [isBurnModalOpen, setIsBurnModalOpen] = useState(false);
+  const [owner, setOwner] = useState("");
 
   const { contract, address } = props;
+
+  useEffect(() => {
+    contract.owner().then(setOwner).catch(setError);
+  }, []);
 
   const authenticate = async () => {
     try {
@@ -24,8 +26,7 @@ const ContractPanel: React.FC<Props> = (props) => {
 
       const balance = await contract.balanceOf(address);
 
-      if (balance.toNumber() < 1)
-        return setError("No meshies owned by your address!");
+      if (balance.lt(1)) return setError("No meshies owned by your address!");
       setError(undefined);
       return setAuthed(true);
     } catch (err: unknown) {
@@ -64,18 +65,11 @@ const ContractPanel: React.FC<Props> = (props) => {
           </div>
 
           <div className="w-full flex flex-col justify-center items-center box-border">
-            <div className="w-1/3 flex flex-row justify-between mt-6">
-              <Button
-                title="mint"
-                onClick={() => setIsMintModalOpen(true)}
-                className="hover:bg-green-600 hover:text-white hover:scale-[1.3] transition-all duration-150"
-              />
-              <Button
-                title="terminate"
-                onClick={() => setIsBurnModalOpen(true)}
-                className="hover:bg-red-600 hover:text-white hover:scale-[1.3] transition-all duration-150"
-              />
-            </div>
+            {address.toLowerCase() === owner.toLowerCase() ? (
+              <OwnerPanel contract={contract} />
+            ) : (
+              <MemberPanel address={address} />
+            )}
           </div>
         </div>
       ) : (
@@ -92,17 +86,6 @@ const ContractPanel: React.FC<Props> = (props) => {
           )}
         </div>
       )}
-
-      <MintModal
-        isModalOpen={isMintModalOpen}
-        setIsModalOpen={setIsMintModalOpen}
-        contract={contract}
-      />
-      <BurnModal
-        isModalOpen={isBurnModalOpen}
-        setIsModalOpen={setIsBurnModalOpen}
-        contract={contract}
-      />
     </div>
   );
 };
