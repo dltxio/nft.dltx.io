@@ -42,3 +42,31 @@ export const formatTwitterHandle = (handle: string) =>
       >{`@${handle}`}</a>
     </p>
   );
+
+export const formatGithubHandle = (handle: string) => (
+  <p key={handle} className="text-inherit">
+    GH:{" "}
+    <a
+      href={`https://github.com/${handle}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="underline underline-offset-2 text-inherit"
+    >
+      {handle}
+    </a>
+  </p>
+);
+
+export const formatEnsAddress = (ens: string) => (
+  <p key={ens} className="text-inherit">
+    ENS:{" "}
+    <a
+      href={`https://app.ens.domains/name/${ens}/details`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="underline underline-offset-2 text-inherit"
+    >
+      {ens}
+    </a>
+  </p>
+);

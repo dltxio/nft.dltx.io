@@ -6,6 +6,21 @@ import { default as Four } from "./4.json";
 import { default as Five } from "./5.json";
 import { default as Six } from "./6.json";
 import { default as Nine } from "./9.json";
+// add more mesh members as their JSON data is recorded for the Meshie NFT's
+import { default as Additional } from "./additional.json";
+
+export type AdditionalMetadataEntry = {
+  name: string;
+  github: string;
+  ens?: string;
+  nfts?: {
+    // highlighted NFT's to be added in later ticket
+    name: string;
+    url: string;
+  }[];
+};
+
+export const ADDITIONAL_METADATA: AdditionalMetadataEntry[] = Additional;
 
 export type MetadataEntry = {
   description: string;

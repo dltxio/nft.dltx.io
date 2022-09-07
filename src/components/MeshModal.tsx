@@ -1,9 +1,11 @@
 import React from "react";
-import { MetadataEntry } from "../static/metadata";
+import { MetadataEntry, ADDITIONAL_METADATA } from "../static/metadata";
 import { Modal } from "../components";
 import {
   shortenPgpOrReturnEmail,
-  formatTwitterHandle
+  formatTwitterHandle,
+  formatGithubHandle,
+  formatEnsAddress
 } from "../utils/attributeUtils";
 
 type Props = {
@@ -16,6 +18,12 @@ const MeshModal: React.FC<Props> = (props) => {
   const { currentMeshMember, isModalOpen, setIsModalOpen } = props;
 
   if (!currentMeshMember) return null;
+
+  const additionalData = ADDITIONAL_METADATA.find(
+    (additional) => additional.name === currentMeshMember.name
+  );
+
+  if (!additionalData) return null;
 
   return (
     <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
@@ -49,6 +57,10 @@ const MeshModal: React.FC<Props> = (props) => {
               )
           )
         )}
+      </div>
+      <div className="w-full flex flex-row items-center gap-x-4 justify-evenly text-center mb-4 flex-wrap">
+        {formatGithubHandle(additionalData.github)}
+        {additionalData.ens && formatEnsAddress(additionalData.ens)}
       </div>
     </Modal>
   );
