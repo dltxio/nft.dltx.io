@@ -1,5 +1,6 @@
 import React from "react";
 import { useWagmi } from "../hooks";
+import { ConnectKitButton } from "connectkit";
 import { PageLayout, Button, Mesh, Logo } from "../components";
 
 const Home: React.FC = () => {
@@ -14,7 +15,7 @@ const Home: React.FC = () => {
             <Mesh />
             <Button
               title="go to dashboard"
-              onClick={() => location.replace("/dashboard")}
+              onClick={() => location.assign("/dashboard")}
               className="mt-12"
               expands
             />
@@ -26,12 +27,16 @@ const Home: React.FC = () => {
             />
           </>
         ) : (
-          <Button
-            title="connect"
-            onClick={wagmi.connect}
-            className="rounded-[50%] !px-4 !py-8"
-            expands
-          />
+          <ConnectKitButton.Custom>
+            {({ show }) => (
+              <Button
+                title="connect"
+                onClick={() => show && show()}
+                className="rounded-[50%] !px-4 !py-8"
+                expands
+              />
+            )}
+          </ConnectKitButton.Custom>
         )}
       </div>
     </PageLayout>
